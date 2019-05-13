@@ -20,54 +20,47 @@ namespace StockOrder.Core
                         customer.TotalBalance = customer.TotalBalance + activity.Amount;
                         break;
                     case ActivityType.Buy:
-                        BuyStock(customer, activity);
+                        PerformStockTransaction(customer, activity);
                         break;
 
                     case ActivityType.Sell:
-                        SellStock(customer, activity);
+                        PerformStockTransaction(customer, activity);
                         break;
                 }
             }
         }
 
-        private void BuyStock(Customer customer, Activity activity)
+        private void PerformStockTransaction(Customer customer, Activity activity)
         {
-            var stockHolding = customer.DoesCustomerOwnStock(activity.StockItem);
+            var stockHolding = AddOrReturnStockHolding(customer, activity);
 
-            //Customer owns stock
-            if (stockHolding != null)
-            {
+            //Activity amount has the final amount, calculated according to amount of bought stocks
+            if (activity.Type == ActivityType.Buy)
+            { 
                 //Reference type :)
                 stockHolding.Quantity = stockHolding.Quantity + Convert.ToInt64(activity.Quantity);
-                //Activity amount has the final amount, calculated according to amount of bought stocks
-                customer.TotalBalance = customer.TotalBalance + activity.Amount;
-                return;
+                customer.TotalBalance = customer.TotalBalance - activity.Amount;
             }
-            var stock = new Stock { Exchange = activity.StockItem.Exchange, Symbol = activity.StockItem.Symbol };
-            var newStockHolding = new StockHolding { Stock = stock, Quantity = activity.Quantity };
-            customer.TotalBalance = customer.TotalBalance - activity.Amount;
-
-            customer.StockHoldings.Add(newStockHolding);
+            else if(activity.Type==ActivityType.Sell)
+            { 
+                stockHolding.Quantity = stockHolding.Quantity - Convert.ToInt64(activity.Quantity);
+                customer.TotalBalance = customer.TotalBalance + activity.Amount;
+            }                
         }
 
-        private void SellStock(Customer customer, Activity activity)
+        private StockHolding AddOrReturnStockHolding(Customer customer, Activity activity)
         {
             var stockHolding = customer.DoesCustomerOwnStock(activity.StockItem);
 
-            //Customer owns stock
-            if (stockHolding != null)
+            if (stockHolding == null)
             {
-                //Reference type :)
-                stockHolding.Quantity = stockHolding.Quantity - Convert.ToInt64(activity.Quantity);
-                //Activity amount has the final amount, calculated according to amount of bought stocks
-                customer.TotalBalance = customer.TotalBalance + activity.Amount;
-                return;
-            }
-            var stock = new Stock { Exchange = activity.StockItem.Exchange, Symbol = activity.StockItem.Symbol };
-            var newStockHolding = new StockHolding { Stock = stock, Quantity = activity.Quantity };
-            customer.TotalBalance = customer.TotalBalance + activity.Amount;
+                var stock = new Stock { Exchange = activity.StockItem.Exchange, Symbol = activity.StockItem.Symbol };
+                var newStockHolding = new StockHolding { Stock = stock};
 
-            customer.StockHoldings.Add(newStockHolding);
+                customer.StockHoldings.Add(newStockHolding);
+                return newStockHolding;
+            }
+            return stockHolding;
         }
     }
 }

@@ -12,6 +12,29 @@ namespace StockOrder.Console
     {
         static void Main(string[] args)
         {
+            var costumer = new Customer();
+            var customerService = new CustomerService();
+
+            var listActivity = ReturnListActivityForTesting();
+
+            customerService.CalculateBalance(costumer, listActivity);
+
+            foreach(var stockHolding in costumer.StockHoldings)
+            {
+                //Output logic located on ToString()
+                System.Console.WriteLine(stockHolding);
+            }
+
+            //Expected balance will be:
+            //ABC.CA = 5
+            //ABC.US = 3
+            //Amount: $78
+            System.Console.WriteLine($"Balance: ${costumer.TotalBalance}");
+            System.Console.ReadKey();
+        }
+
+        private static IList<Activity> ReturnListActivityForTesting()
+        {
             var listActivity = new List<Activity>
             {
                 new Activity { Type = ActivityType.Deposit, Date = new DateTime(2019, 1, 1), Amount = 200 },
@@ -34,25 +57,9 @@ namespace StockOrder.Console
                 new Activity { Type = ActivityType.Sell, Date = new DateTime(2019, 1, 1), Amount = 44,
                     StockItem =new Stock{Exchange="US",Symbol="ABC" },Quantity=4 },
 
-                //Expected balance will be:
-                //ABC.CA = 5
-                //ABC.US = 3
-                //Amount: $78
             };
 
-            var customerService = new CustomerService();
-            var costumer = new Customer();
-
-            customerService.CalculateBalance(costumer, listActivity);
-
-            foreach(var stockHolding in costumer.StockHoldings)
-            {
-                //Output logic located on ToString()
-                System.Console.WriteLine(stockHolding);
-            }
-            System.Console.WriteLine($"Balance: ${costumer.TotalBalance}");
-
-            System.Console.ReadKey();
+            return listActivity;
         }
     }
 }

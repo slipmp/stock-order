@@ -17,17 +17,20 @@ namespace StockOrder.Core
                 {
                     case ActivityType.Deposit:
                     case ActivityType.Withdraw:
+                        //Withdraw is stored as a negative value
                         customer.TotalBalance = customer.TotalBalance + activity.Amount;
                         break;
                     case ActivityType.Buy:
-                        PerformStockTransaction(customer, activity);
-                        break;
-
                     case ActivityType.Sell:
                         PerformStockTransaction(customer, activity);
                         break;
                 }
             }
+
+            //Since the Activities order does not matter, I am not validating per individual activity
+            //rather, I am only validating balance at the end
+            if (customer.TotalBalance < 0)
+                throw new InvalidOperationException($"Customer cannot have negative balance after all transactions performed. Total Balance is:{customer.TotalBalance}");
         }
 
         private void PerformStockTransaction(Customer customer, Activity activity)
@@ -43,6 +46,10 @@ namespace StockOrder.Core
             }
             else if(activity.Type==ActivityType.Sell)
             { 
+                //I am not validating negative balance on Stocks
+                //Reasons:
+                //1 - It was not mentioned such use case
+                //2 - Perhaps we should consider short selling somehow? By having negative balance?
                 stockHolding.Quantity = stockHolding.Quantity - Convert.ToInt64(activity.Quantity);
                 customer.TotalBalance = customer.TotalBalance + activity.Amount;
             }                

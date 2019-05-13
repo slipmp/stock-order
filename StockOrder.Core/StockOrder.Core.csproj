@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DC98C661-6C35-4FF8-84C0-DCF1989450E4}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>StockOrder.Console</RootNamespace>
-    <AssemblyName>StockOrder.Console</AssemblyName>
+    <ProjectGuid>{C723B31A-AE69-4664-A686-2A6B787E157E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StockOrder.Core</RootNamespace>
+    <AssemblyName>StockOrder.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,17 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="CustomerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\StockOrder.Core\StockOrder.Core.csproj">
-      <Project>{c723b31a-ae69-4664-a686-2a6b787e157e}</Project>
-      <Name>StockOrder.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\StockOrder.Domain\StockOrder.Domain.csproj">
       <Project>{dbb072f1-95d1-4532-8da7-2cf595699197}</Project>
       <Name>StockOrder.Domain</Name>

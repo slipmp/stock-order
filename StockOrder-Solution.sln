@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockOrder.Console", "Stock
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockOrder.Domain", "StockOrder.Domain\StockOrder.Domain.csproj", "{DBB072F1-95D1-4532-8DA7-2CF595699197}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockOrder.Core", "StockOrder.Core\StockOrder.Core.csproj", "{C723B31A-AE69-4664-A686-2A6B787E157E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DBB072F1-95D1-4532-8DA7-2CF595699197}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBB072F1-95D1-4532-8DA7-2CF595699197}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBB072F1-95D1-4532-8DA7-2CF595699197}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C723B31A-AE69-4664-A686-2A6B787E157E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C723B31A-AE69-4664-A686-2A6B787E157E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C723B31A-AE69-4664-A686-2A6B787E157E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C723B31A-AE69-4664-A686-2A6B787E157E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

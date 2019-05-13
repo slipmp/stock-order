@@ -13,6 +13,8 @@ namespace StockOrder.Domain
 
         public double Amount { get; set; }
 
+        public Int64 Quantity { get; set; }
+
         public Stock StockItem { get; set; }
     }
 }
